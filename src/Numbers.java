@@ -1,16 +1,25 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import org.antlr.v4.runtime.*; // class ANTLRInputStream , Token
 
 import parser.NumbersLexer;
 
 public class Numbers {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         NumbersLexer lexer;
         Token tk;
         
         // Cria instancia do lexer criado pelo ANTLR
-
+        
+        InputStream is;
+        FileInputStream fis = new FileInputStream("arquivo.kenai");
+        is = fis;
+        
         try {
-            lexer = new NumbersLexer(new ANTLRInputStream( System.in ));
+            lexer = new NumbersLexer(new ANTLRInputStream( is ));
+            is.close();
         } catch (Exception e) {
             // Pikachu!
             System.out.println("Erro:" + e);
