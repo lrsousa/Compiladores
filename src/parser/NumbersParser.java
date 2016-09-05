@@ -18,7 +18,8 @@ public class NumbersParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		NEWLINE=1, BINARY=2, DECIMAL=3, REAL=4, HEXADECIMAL=5, EXPONENCIAL=6, 
-		BIN_DIGIT=7, DEC_DIGIT=8, HEX_DIGIT=9;
+		SIMB_SOMA=7, SIMB_SUBT=8, SIMB_MULT=9, SIMB_DIVS=10, SIMB_EXPO=11, BIN_DIGIT=12, 
+		DEC_DIGIT=13, HEX_DIGIT=14, COMANDO_STATUS=15, COMANDO_RESET=16;
 	public static final int
 		RULE_number = 0;
 	public static final String[] ruleNames = {
@@ -26,10 +27,13 @@ public class NumbersParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
+		null, null, null, null, null, null, null, "'+'", "'-'", "'*'", "'/'", 
+		"'^'", null, null, null, "'status'", "'reset'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "NEWLINE", "BINARY", "DECIMAL", "REAL", "HEXADECIMAL", "EXPONENCIAL", 
-		"BIN_DIGIT", "DEC_DIGIT", "HEX_DIGIT"
+		"SIMB_SOMA", "SIMB_SUBT", "SIMB_MULT", "SIMB_DIVS", "SIMB_EXPO", "BIN_DIGIT", 
+		"DEC_DIGIT", "HEX_DIGIT", "COMANDO_STATUS", "COMANDO_RESET"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -118,7 +122,7 @@ public class NumbersParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\13\7\4\2\t\2\3\2"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\22\7\4\2\t\2\3\2"+
 		"\3\2\3\2\2\2\3\2\2\2\5\2\4\3\2\2\2\4\5\7\4\2\2\5\3\3\2\2\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
