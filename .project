@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>E1--novo</name>
+	<name>Compiladores</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -11,7 +11,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/org.eclipse.jdt.core.javabuilder (1).launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/org.eclipse.jdt.core.javabuilder.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
@@ -21,7 +21,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/Ant Builder Compiladores.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/New_Builder.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
@@ -33,7 +33,7 @@
 		<link>
 			<name>classes</name>
 			<type>2</type>
-			<location>${project_loc}/build/classes</location>
+			<location>D:/DEV/workspace-neon/Compiladores/build/classes</location>
 		</link>
 	</linkedResources>
 </projectDescription>
