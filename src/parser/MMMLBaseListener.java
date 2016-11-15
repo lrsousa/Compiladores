@@ -547,6 +547,18 @@ public class MMMLBaseListener implements MMMLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMetaexpr_rule(MMMLParser.Metaexpr_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMetaexpr_rule(MMMLParser.Metaexpr_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCast_rule(MMMLParser.Cast_ruleContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -14,7 +14,7 @@ public class RunParser {
         MMMLParser parser;
 
         JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("mimimil source code", "mmm");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("arquivo", "kenai");
         chooser.setFileFilter(filter);
         chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
         int retval = chooser.showOpenDialog(null);

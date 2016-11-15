@@ -5,17 +5,30 @@ import java.util.*;
 }
 
 @parser::members {
-   public String testaTipoNumeros(String a, String b) {
-       if (a == "int" && b == "int") {
-		   return "int";
-		} else if (a == "float" && b == "float") {
+   public String testaTipoNumerosExp(String a, String b) {
+		if (a == "string" || b == "string") {
+		   return null;
+		} else {
 		   return "float";
 		}
-		else if ((a == "int" && b == "float") || (a == "float" && b == "float"))
-		{
-			return "float";
+   }
+   
+   public String testaTipoNumeros(String a, String b) {
+		if (a == "string" || b == "string") {
+		   return null;
+		} else if (a == "float" || b == "float") {
+		   return "float";
+		} else {
+			return "int";
 		}
-		return null;
+   }
+   
+   public String testaBool(String a, String b) {
+		if (a == "string" || b == "string") {
+		   return null;
+		} else {
+		   return "bool";
+		}
    }
 }
 
@@ -54,20 +67,18 @@ returns [List<String> plist]
         {
             $plist.add($fdeclparam.pname);
         }
-        fdeclparams_cont[$plist]
-
-                                                     #fdeclparams_one_param_rule
-    |                                                #fdeclparams_no_params
+        fdeclparams_cont[$plist]						 #fdeclparams_one_param_rule
+	|													 #fdeclparams_no_params
     ;
 
-fdeclparams_cont[List<String> plist]
+fdeclparams_cont
+[List<String> plist]
     : ',' fdeclparam
         {
             $plist.add($fdeclparam.pname);
         }
-        fdeclparams_cont[$plist]
-                                                     #fdeclparams_cont_rule
-    |                                                #fdeclparams_end_rule
+        fdeclparams_cont[$plist]						#fdeclparams_cont_rule
+    |                                                	#fdeclparams_end_rule
     ;
 
 fdeclparam
@@ -98,6 +109,7 @@ returns [String tipo]
     | 'bool'	{$tipo = "bool";}
     | 'str'		{$tipo = "string";} 
     | 'float'	{$tipo = "float";}
+    | 'char'	{$tipo = "char";}
     ;
 
 sequence_type
@@ -114,10 +126,14 @@ returns [int dimension=0, String base]
         }											#sequencetype_sequence_rule
     ;
 
-funcbody:
-        ifexpr                                       #fbody_if_rule
+funcbody
+returns [String tipo]
+	:	ifexpr                                       #fbody_if_rule
     |   letexpr                                      #fbody_let_rule
-    |   metaexpr                                     #fbody_expr_rule
+    |   meta = metaexpr
+	    {
+	    	if($meta.tipo != null) {$tipo = $meta.tipo;}
+	    }                                     		#fbody_expr_rule
     ;
 
 ifexpr
@@ -145,44 +161,54 @@ letvarexpr
 
 metaexpr
 returns [String tipo]
-    : '(' funcbody ')'                               #me_exprparens_rule     // Anything in parenthesis -- if, let, funcion call, etc
-    | sequence_expr                                  #me_list_create_rule    // creates a list [x]
-    | TOK_NEG symbol                                 
+    : '(' fbody = funcbody ')'
     	{
-    		$tipo = "bool";
+    		$tipo = $fbody.tipo;
+    	}                               			 #me_exprparens_rule     // Anything in parenthesis -- if, let, funcion call, etc
+    | sequence_expr                                  #me_list_create_rule    // creates a list [x]
+    | TOK_NEG simbolo = symbol {
+    		if($simbolo.tipo == "string") {
+	    		$tipo = "string";
+    		} else {
+	    		$tipo = "int";
+    			
+    		}
+    		
     	}											 #me_boolneg_rule        // Negate a variable
     | TOK_NEG '(' funcbody ')'
     	{
-    		$tipo = "bool";
+    		
     	}					                        #me_boolnegparens_rule  //        or anything in between ( )
     | esquerda = metaexpr TOK_POWER direita = metaexpr
     	{
-    		$tipo = testaTipoNumeros($esquerda.tipo, $direita.tipo);
+    		$tipo = testaTipoNumerosExp($esquerda.tipo, $direita.tipo);
     	}                    						 #me_exprpower_rule      // Exponentiation
     | esquerda = metaexpr TOK_CONCAT direita = metaexpr
     	{
-    		if($esquerda.tipo == "string" && $direita.tipo == "string")
-    		{
+    		if($esquerda.tipo == "string" || $direita.tipo == "string") {
     			$tipo = "string";
     		}
     	}                   						 #me_listconcat_rule     // Sequence concatenation
     | esquerda = metaexpr TOK_DIV_OR_MUL direita = metaexpr
     	{
     		$tipo = testaTipoNumeros($esquerda.tipo, $direita.tipo);
-    								}                #me_exprmuldiv_rule     // Div and Mult are equal
+		}                							 #me_exprmuldiv_rule     // Div and Mult are equal
     | esquerda = metaexpr TOK_PLUS_OR_MINUS direita = metaexpr
     	{
     		$tipo = testaTipoNumeros($esquerda.tipo, $direita.tipo);
     	}            								 #me_exprplusminus_rule  // Sum and Sub are equal
-    | metaexpr TOK_CMP_GT_LT metaexpr
+    | esquerda = metaexpr TOK_CMP_GT_LT direita = metaexpr
     	{
-    		$tipo = "bool";
+    		$tipo = testaBool($esquerda.tipo, $direita.tipo);
     	}                							 #me_boolgtlt_rule       // < <= >= > are equal
-    | metaexpr TOK_CMP_EQ_DIFF metaexpr
+    | esquerda = metaexpr TOK_CMP_EQ_DIFF direita = metaexpr
     	{
-    		$tipo = "bool";
+    		$tipo = testaBool($esquerda.tipo, $direita.tipo);
     	} 								             #me_booleqdiff_rule     // == and != are egual
-    | metaexpr TOK_BOOL_AND_OR metaexpr              #me_boolandor_rule      // &&   and  ||  are equal
+	| esquerda = metaexpr TOK_BOOL_AND_OR direita = metaexpr
+		{
+			$tipo = testaBool($esquerda.tipo, $direita.tipo);
+		}											 #me_boolandor_rule      // &&   and  ||  are equal
     | symbol
 		{
 			$tipo = $symbol.tipo;
@@ -202,7 +228,10 @@ sequence_expr
     : '[' funcbody ']'                               #se_create_seq
     ;
 
-funcall: symbol funcall_params                       #funcall_rule
+funcall
+	: symbol funcall_params                       #funcall_rule
+	| symbol metaexpr							  #metaexpr_rule
+	
         /*{
             System.Console.WriteLine("Uma chamada de funcao! {0}", $symbol.text);
         }*/
@@ -226,21 +255,24 @@ funcall_params_cont
 literal
 returns [String tipo]
 	: 'nil'                                           #literalnil_rule
-    | 'true'                                          #literaltrue_rule
+    | 'true' {$tipo = "bool";}                         #literaltrue_rule
     | number
     	{
     		System.out.println("Antigos espiritos do mal, transformem essa forma decadente em Mun-Ra, o de vida eterna!");
     		$tipo = $number.tipo;
     	}  							                  #literalnumber_rule
-    | strlit                                          #literalstring_rule
-    | charlit                                         #literal_char_rule
+    | strlit { $tipo = "string";}                      #literalstring_rule
+    | charlit {$tipo = "char";}                        #literal_char_rule
     ;
 
-strlit: TOK_STR_LIT
+strlit
+returns [String tipo]
+	: TOK_STR_LIT {$tipo = "string";}
     ;
 
 charlit
-    : TOK_CHAR_LIT
+returns [String tipo]
+    : TOK_CHAR_LIT {$tipo = "char";}
     ;
 
 number
