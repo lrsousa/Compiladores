@@ -2,6 +2,10 @@
 package parser;
 
 import java.util.*;
+import java.util.ArrayList;
+
+import NestedPackage.NestedSymbolTable;
+import NestedPackage.SymbolEntry;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

@@ -2,6 +2,10 @@
 package parser;
 
 import java.util.*;
+import java.util.ArrayList;
+
+import NestedPackage.NestedSymbolTable;
+import NestedPackage.SymbolEntry;
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -542,18 +546,6 @@ public class MMMLBaseListener implements MMMLListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFuncall_rule(MMMLParser.Funcall_ruleContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMetaexpr_rule(MMMLParser.Metaexpr_ruleContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMetaexpr_rule(MMMLParser.Metaexpr_ruleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

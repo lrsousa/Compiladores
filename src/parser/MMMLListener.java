@@ -2,6 +2,10 @@
 package parser;
 
 import java.util.*;
+import java.util.ArrayList;
+
+import NestedPackage.NestedSymbolTable;
+import NestedPackage.SymbolEntry;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -534,18 +538,6 @@ public interface MMMLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFuncall_rule(MMMLParser.Funcall_ruleContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code metaexpr_rule}
-	 * labeled alternative in {@link MMMLParser#funcall}.
-	 * @param ctx the parse tree
-	 */
-	void enterMetaexpr_rule(MMMLParser.Metaexpr_ruleContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code metaexpr_rule}
-	 * labeled alternative in {@link MMMLParser#funcall}.
-	 * @param ctx the parse tree
-	 */
-	void exitMetaexpr_rule(MMMLParser.Metaexpr_ruleContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code cast_rule}
 	 * labeled alternative in {@link MMMLParser#cast}.

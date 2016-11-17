@@ -6,13 +6,14 @@ import javax.swing.filechooser.*;
 
 import parser.MMMLLexer;
 import parser.MMMLParser;
+import parser.MMMLParser.FuncbodyContext;
 import parser.MMMLParser.MetaexprContext;
 
 public class RunParser {
     public static void main(String[] args) throws Exception {
         MMMLLexer lexer;
         MMMLParser parser;
-
+        
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("arquivo", "kenai");
         chooser.setFileFilter(filter);
@@ -28,7 +29,8 @@ public class RunParser {
             lexer = new MMMLLexer(new ANTLRInputStream(fin));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             parser = new MMMLParser(tokens);
-            MetaexprContext opa = parser.metaexpr();
+//            MetaexprContext opa = parser.metaexpr();
+            FuncbodyContext opa = parser.funcbody();
             System.out.println(opa.tipo);
             
         } catch (Exception e) {
