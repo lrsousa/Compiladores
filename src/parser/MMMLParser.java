@@ -137,10 +137,11 @@ public class MMMLParser extends Parser {
 	   }
 	   
 	   private void imprimirTabela() {
-		  System.out.println("Tamanho: " + tabelaSimbolo.getSize());
-	   	  if(tabelaSimbolo != null && tabelaSimbolo.getCount() > 0) {
-	         System.out.println("Tipo: " + tabelaSimbolo.toString());
-	   	  }
+	      int i= 1;
+	      for (SymbolEntry<String> entry : tabelaSimbolo.getEntries()) {
+	         System.out.println(i +" simbolo= "+ entry);
+	         i++;
+	      }
 	   }
 	   
 

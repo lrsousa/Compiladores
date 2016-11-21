@@ -49,7 +49,6 @@ import java.util.*;
             if (parent != null) {
                 parent.nested.remove(this);
             }
-
         }
 
         // Private Members
@@ -135,7 +134,7 @@ import java.util.*;
             this.size += size;
             this.nextOffset += size;
 
-            storage.put(name, new SymbolEntry<T>(symbol, symbolOffset, size));
+            storage.put(name, new SymbolEntry<T>(name, symbol, symbolOffset, size));
 
             return symbolOffset;
         }
@@ -184,8 +183,7 @@ import java.util.*;
 
             recursiveFillEntries(this, values);
 
-            Collections.sort(values,
-                        (a, b) -> b.offset - a.offset);
+            Collections.sort(values, (a, b) -> b.offset - a.offset);
 
             return values;
         }
