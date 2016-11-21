@@ -31,7 +31,7 @@ public class RunParser {
             parser = new MMMLParser(tokens);
 //            MetaexprContext opa = parser.metaexpr();
             FuncbodyContext opa = parser.funcbody();
-            System.out.println(opa.tipo);
+            System.out.println("Teste tipo: " + opa.tipo);
             
         } catch (Exception e) {
             // Pikachu!

@@ -15,8 +15,8 @@ public class SymbolEntry<T> {
     
     public String toString() {
         return "Entry at " + offset +
-                ", size " + size +
-                "value: " + symbol +
-                "nome: " + nome;
+                ", size: " + size +
+                ", value: " + symbol +
+                ", nome: " + nome;
     }
 }
