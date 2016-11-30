@@ -91,15 +91,15 @@ import java.util.*;
          *---------------------------------------------------------------------------*/
         public int getNestedCount() {
             if (nested.size() == 0) return getCount();
-                else {
-                    int max = -1;
-                    for (NestedSymbolTable<T> t : this.nested) {
-                        int tc = t.getNestedCount();
-                        if (tc > max)
-                            max = tc;
-                    }
-                    return max;
+            else {
+                int max = -1;
+                for (NestedSymbolTable<T> t : this.nested) {
+                    int tc = t.getNestedCount();
+                    if (tc > max)
+                        max = tc;
                 }
+                return max;
+            }
         }
 
         /*-----------------------------------------------------------------------------
@@ -109,15 +109,15 @@ import java.util.*;
          *---------------------------------------------------------------------------*/
         public int getNestedSize() {
             if (nested.size() == 0) return getSize();
-                else {
-                    int max = -1;
-                    for (NestedSymbolTable<T> t : this.nested) {
-                        int tc = t.getNestedSize();
-                        if (tc > max)
-                            max = tc;
-                    }
-                    return max;
+            else {
+                int max = -1;
+                for (NestedSymbolTable<T> t : this.nested) {
+                    int tc = t.getNestedSize();
+                    if (tc > max)
+                        max = tc;
                 }
+                return max;
+            }
         }
 
         /*-----------------------------------------------------------------------------

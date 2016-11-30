@@ -160,7 +160,8 @@ letlist
 returns [NestedSymbolTable<String> tabela]
 	@init
 	{
-		$tabela = new NestedSymbolTable<String>();
+		$tabela = new NestedSymbolTable<String>(tabelaSimbolo);
+		tabelaSimbolo = $tabela;
 	}
     : letvarexpr[$tabela] {$tabela.store($letvarexpr.nome, $letvarexpr.tipo);} letlist_cont[$tabela]                             #letlist_rule
     ;

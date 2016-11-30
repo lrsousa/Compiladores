@@ -1236,7 +1236,8 @@ public class MMMLParser extends Parser {
 		LetlistContext _localctx = new LetlistContext(_ctx, getState());
 		enterRule(_localctx, 28, RULE_letlist);
 
-				((LetlistContext)_localctx).tabela =  new NestedSymbolTable<String>();
+				((LetlistContext)_localctx).tabela =  new NestedSymbolTable<String>(tabelaSimbolo);
+				tabelaSimbolo = _localctx.tabela;
 			
 		try {
 			_localctx = new Letlist_ruleContext(_localctx);
